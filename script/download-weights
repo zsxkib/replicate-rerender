@@ -4,12 +4,11 @@ import os
 import sys
 from huggingface_hub import hf_hub_download
 
-sys.path.append(".")
 
 model_dict = {
     "Stable Diffusion 1.5": "",
-    "revAnimated_v11": "./models/revAnimated_v11.safetensors",
-    "realisticVisionV20_v20": "./models/realisticVisionV20_v20.safetensors",
+    "revAnimated_v11": "models/revAnimated_v11.safetensors",
+    "realisticVisionV20_v20": "models/realisticVisionV20_v20.safetensors",
 }
 
 repo_name = "Anonymous-sub/Rerender"
@@ -35,7 +34,7 @@ hf_hub_download(
 )
 hf_hub_download(
     "lllyasviel/ControlNet",
-    "./models/control_sd15_canny.pth",
+    "models/control_sd15_canny.pth",
 )
 
 for sd_model in model_dict.keys():
@@ -50,4 +49,10 @@ for sd_model in model_dict.keys():
 hf_hub_download(
     "stabilityai/sd-vae-ft-mse-original",
     "vae-ft-mse-840000-ema-pruned.ckpt",
+)
+
+hf_hub_download(
+    repo_name,
+    "models/gmflow_sintel-0c07dcb3.pth",
+    local_dir="./",
 )
