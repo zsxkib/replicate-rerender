@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+
+import os
+import sys
+from huggingface_hub import hf_hub_download
+
+sys.path.append(".")
+
+model_dict = {
+    "Stable Diffusion 1.5": "",
+    "revAnimated_v11": "./models/revAnimated_v11.safetensors",
+    "realisticVisionV20_v20": "./models/realisticVisionV20_v20.safetensors",
+}
+
+repo_name = "Anonymous-sub/Rerender"
+
+hf_hub_download(
+    repo_name,
+    "pexels-koolshooters-7322716.mp4",
+    local_dir="videos",
+)
+hf_hub_download(
+    repo_name,
+    "pexels-antoni-shkraba-8048492-540x960-25fps.mp4",
+    local_dir="videos",
+)
+hf_hub_download(
+    repo_name,
+    "pexels-cottonbro-studio-6649832-960x506-25fps.mp4",
+    local_dir="videos",
+)
+hf_hub_download(
+    "lllyasviel/ControlNet",
+    "./models/control_sd15_hed.pth",
+)
+hf_hub_download(
+    "lllyasviel/ControlNet",
+    "./models/control_sd15_canny.pth",
+)
+
+for sd_model in model_dict.keys():
+    sd_model_path = model_dict[sd_model]
+    if len(sd_model_path) > 0:
+        model_ext = os.path.splitext(sd_model_path)[1]
+        hf_hub_download(
+            repo_name,
+            sd_model_path,
+        )
+
+hf_hub_download(
+    "stabilityai/sd-vae-ft-mse-original",
+    "vae-ft-mse-840000-ema-pruned.ckpt",
+)
